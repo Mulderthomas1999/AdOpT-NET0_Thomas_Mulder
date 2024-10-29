@@ -14,7 +14,7 @@ resultfolder = "Z:/PyHub/PyHub_results/CM/Infrastructure"
 data_to_excel_path = 'C:/EHubversions/AdOpT-NET0_Julia/Plotting/result_data_infra.xlsx'
 
 # select the type of plot from ['costs_spec', 'costs_spec_cor', 'emissions_spec', 'emissions_spec_cor', 'size']
-plot_type = 'emissions_spec_cor'
+plot_type = 'costs_spec_cor'
 
 get_data = 0
 
@@ -22,7 +22,7 @@ if get_data == 1:
     # Define the multi-level index for rows
     columns = pd.MultiIndex.from_product(
         [
-            ["Chemelot"],
+            ["Zeeland"],
             ["CO2lim0", "CO2limHigh", "eleclim"],
             ["minC_ref", "minC_high"]
         ],
@@ -194,14 +194,19 @@ if plot_type in ['costs_spec', 'costs_spec_cor', 'emissions_spec', 'emissions_sp
     plt.tight_layout()
 
     #save the file
-    saveas = 'svg'
+    saveas = 'both'
 
     if saveas == 'svg':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.svg'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
         plt.savefig(savepath, format='svg')
     elif saveas == 'pdf':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.pdf'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
         plt.savefig(savepath, format='pdf')
+    elif saveas == 'both':
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
+        plt.savefig(savepath, format='pdf')
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
+        plt.savefig(savepath, format='svg')
 
 
 elif plot_type == 'size':
