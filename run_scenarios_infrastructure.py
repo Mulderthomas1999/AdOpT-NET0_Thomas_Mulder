@@ -68,7 +68,7 @@ if execute == 1:
 
 
 #Run Chemelot cluster case
-execute = 0
+execute = 1
 
 if execute == 1:
     # Specify the path to your input data
@@ -136,7 +136,7 @@ if execute == 1:
                     pyhub.quick_solve()
 
 #Run Zeeland cluster case
-execute = 1
+execute = 0
 
 if execute == 1:
     # Specify the path to your input data

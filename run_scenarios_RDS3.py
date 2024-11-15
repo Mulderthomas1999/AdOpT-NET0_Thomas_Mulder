@@ -9,7 +9,7 @@ from adopt_net0.result_management.read_results import add_values_to_summary
 
 
 #Run Chemelot cluster case
-execute = 0
+execute = 1
 
 if execute == 1:
     # Specify the path to your input data
@@ -17,8 +17,8 @@ if execute == 1:
     resultpath = "Z:/PyHub/PyHub_results/CM/Cluster_integration/Chemelot_cluster"
     json_filepath = Path(casepath) / "ConfigModel.json"
 
-    objectives = ['costs', 'emissions_minC']
-    # objectives = ['emissions_minC']
+    # objectives = ['costs', 'emissions_minC']
+    objectives = ['emissions_net']
 
     for obj in objectives:
         with open(json_filepath) as json_file:
@@ -41,7 +41,7 @@ if execute == 1:
         pyhub = ModelHub()
         pyhub.read_data(casepath)
 
-        if obj == 'emissions_minC':
+        if obj == 'emissions_minC' or obj == 'emissions_net':
             # add casename
             pyhub.data.model_config['reporting']['case_name']['value'] = 'minE_refCO2tax'
 
@@ -72,8 +72,8 @@ if execute == 1:
     resultpath = "Z:/PyHub/PyHub_results/CM/Cluster_integration/Chemelot_ammonia"
     json_filepath = Path(casepath) / "ConfigModel.json"
 
-    objectives = ['costs', 'emissions_minC']
-    # objectives = ['emissions_minC']
+    # objectives = ['costs', 'emissions_minC']
+    objectives = ['emissions_net']
 
     for obj in objectives:
         with open(json_filepath) as json_file:
@@ -96,7 +96,7 @@ if execute == 1:
         pyhub = ModelHub()
         pyhub.read_data(casepath)
 
-        if obj == 'emissions_minC':
+        if obj == 'emissions_minC' or obj == 'emissions_net':
 
             # add casename
             pyhub.data.model_config['reporting']['case_name']['value'] = 'minE_refCO2tax'
@@ -185,7 +185,7 @@ if execute == 1:
     resultpath = "Z:/PyHub/PyHub_results/CM/Cluster_integration/Zeeland_cluster"
     json_filepath = Path(casepath) / "ConfigModel.json"
 
-    objectives = ['costs', 'emissions_minC']
+    objectives = ['costs']
     # objectives = ['emissions_minC']
 
     for obj in objectives:
@@ -217,8 +217,8 @@ if execute == 1:
             pyhub.quick_solve()
 
         elif obj == 'costs':
-            # co2tax = ['ref', 'high']
-            co2tax = ['high']
+            co2tax = ['ref', 'high']
+            # co2tax = ['ref']
 
             for tax in co2tax:
                 # add casename
@@ -242,8 +242,8 @@ if execute == 1:
     resultpath = "Z:/PyHub/PyHub_results/CM/Cluster_integration/Zeeland_ammonia"
     json_filepath = Path(casepath) / "ConfigModel.json"
 
-    objectives = ['costs', 'emissions_minC']
-    # objectives = ['costs']
+    # objectives = ['costs', 'emissions_minC']
+    objectives = ['emissions_net']
 
     for obj in objectives:
         with open(json_filepath) as json_file:
@@ -266,7 +266,7 @@ if execute == 1:
         pyhub = ModelHub()
         pyhub.read_data(casepath)
 
-        if obj == 'emissions_minC':
+        if obj == 'emissions_minC' or obj == 'emissions_net':
 
             # add casename
             pyhub.data.model_config['reporting']['case_name']['value'] = 'minE_refCO2tax'
