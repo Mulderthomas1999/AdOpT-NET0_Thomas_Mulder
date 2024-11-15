@@ -227,8 +227,8 @@ def plot_operation_profiles(operation_profiles, el_price2, el_emissionrate, rela
     color_cycle = plt.rcParams['axes.prop_cycle'].by_key()['color'] if colors is None else colors
     tech_labels = {
         "NaphthaCracker_Electric": "Electric cracker",
-        "eSMR": "",
-        "AEC": "AEC",
+        "eSMR": "Electric SMR",
+        "AEC": "",
         "Boiler_El": "Electric boiler",
         "Storage_Battery": "Battery storage"
     }
@@ -311,10 +311,10 @@ def main():
 
     # custom_colors_operation = ['#512500', '#7D1D3F', '#9467bd', '#33658A', '#F26419']
     # custom_colors_operation = ['#5D3250', '#94617B', '#A37BA2', '#A0B7BB', '#4A7787']
-    custom_colors_operation = ['#422966', '#EEEEFF', '#EEBD6D', '#79AA74', '#28587B']
+    custom_colors_operation = ['#422966', '#EEBD6D', '#EEEEFF', '#79AA74', '#28587B']
     custom_colors_import = ['#3F826D', '#E15F51', '#545E75', '#F2D0A4']
     overlay = "emission"
-    plot = "operation"
+    plot = "import"
 
     if plot == "operation":
         plot_operation_profiles(operation_profiles, el_price2, el_emissionrate, overlay=overlay, colors=custom_colors_operation)
@@ -323,13 +323,18 @@ def main():
 
     filename = plot + '_' + overlay
 
-    saveas = 'svg'
+    saveas = 'both'
     if saveas == 'svg':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.svg'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
         plt.savefig(savepath, format='svg')
     elif saveas == 'pdf':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.pdf'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
         plt.savefig(savepath, format='pdf')
+    elif saveas == 'both':
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
+        plt.savefig(savepath, format='pdf')
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
+        plt.savefig(savepath, format='svg')
 
     plt.show()
 

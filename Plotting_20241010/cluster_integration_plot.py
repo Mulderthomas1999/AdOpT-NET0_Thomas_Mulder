@@ -251,14 +251,19 @@ if plot_type in ['costs_spec', 'costs_spec_cor', 'emissions_spec', 'emissions_sp
     plt.tight_layout()
 
     #save the file
-    saveas = 'pdf'
+    saveas = 'both'
 
     if saveas == 'svg':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.svg'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
         plt.savefig(savepath, format='svg')
     elif saveas == 'pdf':
-        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/Paper/{filename}.pdf'
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
         plt.savefig(savepath, format='pdf')
+    elif saveas == 'both':
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.pdf'
+        plt.savefig(savepath, format='pdf')
+        savepath = f'C:/Users/5637635/Documents/OneDrive - Universiteit Utrecht/Images and graphs/Collection CM/PaperFinal/{filename}.svg'
+        plt.savefig(savepath, format='svg')
 
 
 elif plot_type == 'size':
