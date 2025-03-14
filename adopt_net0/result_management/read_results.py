@@ -24,7 +24,7 @@ def print_h5_tree(file_path: Path | str):
         hdf_file.visititems(print_attrs)
 
 
-def extract_datasets_from_h5group(group, prefix: tuple = ()) -> dict:
+def extract_datasets_from_h5group(group, tec_ope = False, prefix: tuple = (),) -> pd.DataFrame:
     """
     Extracts datasets from a group within a h5 file
 
@@ -40,14 +40,19 @@ def extract_datasets_from_h5group(group, prefix: tuple = ()) -> dict:
     data = {}
     for key, value in group.items():
         if isinstance(value, h5py.Group):
-            data.update(extract_datasets_from_h5group(value, prefix + (key,)))
+            data.update(extract_datasets_from_h5group(value, tec_ope, prefix + (key,)))
         elif isinstance(value, h5py.Dataset):
             if value.shape == ():
                 data[prefix + (key,)] = [value[()]]
             else:
                 data[prefix + (key,)] = value[:]
 
-    return data
+    if tec_ope:
+        df = data
+    else:
+        df = pd.DataFrame(data)
+
+    return df
 
 
 def extract_dataset_from_h5(dataset) -> list:
@@ -102,8 +107,7 @@ def add_values_to_summary(summary_path: Path, component_set: list = None):
             with h5py.File(hdf_file_path, "r") as hdf_file:
 
                 if "Technologies" in component_set:
-                    data = extract_datasets_from_h5group(hdf_file["design/nodes"])
-                    df = pd.DataFrame(data)
+                    df = extract_datasets_from_h5group(hdf_file["design/nodes"])
                     for period in df.columns.levels[0]:
                         for node in df.columns.levels[1]:
                             for tec in df.columns.levels[2]:
@@ -121,8 +125,7 @@ def add_values_to_summary(summary_path: Path, component_set: list = None):
                                             output_dict[case][output_name] = tec_output
 
                 if "Networks" in component_set:
-                    data = extract_datasets_from_h5group(hdf_file["design/networks"])
-                    df = pd.DataFrame(data)
+                    df = extract_datasets_from_h5group(hdf_file["design/networks"])
                     if not df.empty:
                         for period in df.columns.levels[0]:
                             for netw in df.columns.levels[1]:
@@ -142,10 +145,9 @@ def add_values_to_summary(summary_path: Path, component_set: list = None):
                                             output_dict[case][output_name] = arc_output
 
                 if "Import" in component_set:
-                    data = extract_datasets_from_h5group(
+                    df = extract_datasets_from_h5group(
                         hdf_file["operation/energy_balance"]
                     )
-                    df = pd.DataFrame(data)
                     for period in df.columns.levels[0]:
                         for node in df[period].columns.levels[0]:
                             cars_at_node = (
@@ -181,10 +183,9 @@ def add_values_to_summary(summary_path: Path, component_set: list = None):
                                             ] = car_output_std
 
                 if "Export" in component_set:
-                    data = extract_datasets_from_h5group(
+                    df = extract_datasets_from_h5group(
                         hdf_file["operation/energy_balance"]
                     )
-                    df = pd.DataFrame(data)
                     for period in df.columns.levels[0]:
                         for node in df[period].columns.levels[0]:
                             cars_at_node = (

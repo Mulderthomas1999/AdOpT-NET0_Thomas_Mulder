@@ -136,7 +136,10 @@ def determine_variable_scaling(model, model_block, f: dict, f_global):
         var_name = var.name.split(".")[-1]
 
         # check if var is integer
-        var_is_integer = any([var[index].is_integer() for index in var.index_set()])
+        if 'hull' not in var.name:
+            var_is_integer = any([var[index].is_integer() for index in var.index_set()])
+        else:
+            var_is_integer = True
 
         if not var_is_integer:
             # Determine global scaling factor

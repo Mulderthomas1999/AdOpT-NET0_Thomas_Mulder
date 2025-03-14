@@ -1,13 +1,13 @@
 {
   "tec_type": "STOR",
   "size_min": 0,
-  "size_max": 100000,
+  "size_max": 1900,
   "size_is_int": 0,
   "decommission": 0,
   "Economics": {
-    "comment": "CAPEX in EUR/tonne or as a piecewise function, OPEX_variable in EUR/tonne total output, OPEX_fixed in % of CAPEX_annual",
+    "comment": "CAPEX in EUR/MW or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
     "CAPEX_model": 1,
-    "unit_CAPEX": 19520,
+    "unit_CAPEX": 26219,
     "fix_CAPEX": 0,
     "piecewise_CAPEX": {
       "bp_x": "not defined",
@@ -15,8 +15,8 @@
     },
     "OPEX_variable": 0,
     "OPEX_fixed": 0.02,
-    "discount_rate": 0.1,
-    "lifetime": 15,
+    "discount_rate": 0.08,
+    "lifetime": 25,
     "decommission_cost": 0
   },
   "Performance": {
@@ -32,8 +32,8 @@
     "allow_only_one_direction": 1,
     "performance": {
       "eta_in": 1,
-      "eta_out": 0.99,
-      "lambda": 0.001,
+      "eta_out": 1,
+      "lambda": 0,
       "theta": 0
     }
   },

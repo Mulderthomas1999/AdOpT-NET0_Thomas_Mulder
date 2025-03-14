@@ -909,9 +909,12 @@ class Technology(ModelComponent):
                     t, b_tec.set_output_carriers[1]
                 ]
             else:
-                opex_variable_based_on = b_tec.var_input[
-                    t, self.component_options.main_input_carrier
-                ]
+                if self.component_options.main_input_carrier == 'sum':
+                    opex_variable_based_on = sum(b_tec.var_input[t, input_car] for input_car in b_tec.set_input_carriers)
+                else:
+                    opex_variable_based_on = b_tec.var_input[
+                        t, self.component_options.main_input_carrier
+                    ]
             return (
                 opex_variable_based_on * b_tec.para_opex_variable
                 == b_tec.var_opex_variable[t]
@@ -1006,37 +1009,67 @@ class Technology(ModelComponent):
                 )
 
             elif emissions_based_on == "input":
+                if self.component_options.main_input_carrier == 'sum':
+                    def init_tec_emissions_pos(const, t):
+                        if c["emission_factor"] >= 0:
+                            return (
+                                    sum(b_tec.var_input[t, input_car] for input_car in b_tec.set_input_carriers)
+                                    * b_tec.para_tec_emissionfactor
+                                    == b_tec.var_tec_emissions_pos[t]
+                            )
+                        else:
+                            return b_tec.var_tec_emissions_pos[t] == 0
 
-                def init_tec_emissions_pos(const, t):
-                    if c["emission_factor"] >= 0:
-                        return (
-                            b_tec.var_input[
-                                t, self.component_options.main_input_carrier
-                            ]
-                            * b_tec.para_tec_emissionfactor
-                            == b_tec.var_tec_emissions_pos[t]
-                        )
-                    else:
-                        return b_tec.var_tec_emissions_pos[t] == 0
+                    b_tec.const_tec_emissions_pos = pyo.Constraint(
+                        self.set_t_global, rule=init_tec_emissions_pos
+                    )
 
-                b_tec.const_tec_emissions_pos = pyo.Constraint(
-                    self.set_t_global, rule=init_tec_emissions_pos
-                )
+                    def init_tec_emissions_neg(const, t):
+                        if c["emission_factor"] < 0:
+                            return (
+                                    sum(b_tec.var_input[t, input_car] for input_car in b_tec.set_input_carriers)
+                                    * (-b_tec.para_tec_emissionfactor)
+                                    == b_tec.var_tec_emissions_neg[t]
+                            )
+                        else:
+                            return b_tec.var_tec_emissions_neg[t] == 0
 
-                def init_tec_emissions_neg(const, t):
-                    if c["emission_factor"] < 0:
-                        return (
-                            b_tec.var_input[
-                                t, self.component_options.main_input_carrier
-                            ](-b_tec.para_tec_emissionfactor)
-                            == b_tec.var_tec_emissions_neg[t]
-                        )
-                    else:
-                        return b_tec.var_tec_emissions_neg[t] == 0
+                    b_tec.const_tec_emissions_neg = pyo.Constraint(
+                        self.set_t_global, rule=init_tec_emissions_neg
+                    )
 
-                b_tec.const_tec_emissions_neg = pyo.Constraint(
-                    self.set_t_global, rule=init_tec_emissions_neg
-                )
+                else:
+
+                    def init_tec_emissions_pos(const, t):
+                        if c["emission_factor"] >= 0:
+                            return (
+                                b_tec.var_input[
+                                    t, self.component_options.main_input_carrier
+                                ]
+                                * b_tec.para_tec_emissionfactor
+                                == b_tec.var_tec_emissions_pos[t]
+                            )
+                        else:
+                            return b_tec.var_tec_emissions_pos[t] == 0
+
+                    b_tec.const_tec_emissions_pos = pyo.Constraint(
+                        self.set_t_global, rule=init_tec_emissions_pos
+                    )
+
+                    def init_tec_emissions_neg(const, t):
+                        if c["emission_factor"] < 0:
+                            return (
+                                b_tec.var_input[
+                                    t, self.component_options.main_input_carrier
+                                ](-b_tec.para_tec_emissionfactor)
+                                == b_tec.var_tec_emissions_neg[t]
+                            )
+                        else:
+                            return b_tec.var_tec_emissions_neg[t] == 0
+
+                    b_tec.const_tec_emissions_neg = pyo.Constraint(
+                        self.set_t_global, rule=init_tec_emissions_neg
+                    )
 
         return b_tec
 

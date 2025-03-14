@@ -1,22 +1,22 @@
 {
   "tec_type": "STOR",
   "size_min": 0,
-  "size_max": 1.0E+7,
+  "size_max": 65890,
   "size_is_int": 0,
   "decommission": 0,
   "Economics": {
-    "comment": "CAPEX in EUR/MWh or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
+    "comment": "CAPEX in EUR/MW or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
     "CAPEX_model": 1,
-    "unit_CAPEX": 500000,
+    "unit_CAPEX": 228530,
     "fix_CAPEX": 0,
     "piecewise_CAPEX": {
       "bp_x": "not defined",
       "bp_y": "not defined"
     },
     "OPEX_variable": 0,
-    "OPEX_fixed": 0.04,
-    "discount_rate": 0.1,
-    "lifetime": 10,
+    "OPEX_fixed": 0.015,
+    "discount_rate": 0.08,
+    "lifetime": 20,
     "decommission_cost": 0
   },
   "Performance": {
@@ -31,17 +31,17 @@
     "emission_factor": 0,
     "allow_only_one_direction": 1,
     "performance": {
-      "eta_in": 0.96,
-      "eta_out": 0.96,
-      "lambda": 0.001,
+      "eta_in": 0.98,
+      "eta_out": 0.97,
+      "lambda": 0,
       "theta": 0
     }
   },
   "Flexibility": {
     "comment": "determines the flexibility of the power capacity compared to the energy capacity",
-    "power_energy_ratio": "fixedratio",
-    "charge_rate": 0.3,
-    "discharge_rate": 0.3,
+    "power_energy_ratio": "fixed",
+    "charge_rate": 1,
+    "discharge_rate": 1,
     "capex_charging_power": 0,
     "capex_discharging_power": 0
   },

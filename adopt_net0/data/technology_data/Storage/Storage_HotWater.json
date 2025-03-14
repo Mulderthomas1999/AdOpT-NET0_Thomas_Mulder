@@ -5,7 +5,7 @@
   "size_is_int": 0,
   "decommission": 0,
   "Economics": {
-    "comment": "CAPEX in EUR/MWh or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
+    "comment": "CAPEX in EUR/MW or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
     "CAPEX_model": 1,
     "unit_CAPEX": 10000,
     "fix_CAPEX": 0,
@@ -49,9 +49,9 @@
   },
   "Flexibility": {
     "comment": "determines the flexibility of the power capacity compared to the energy capacity",
-    "power_energy_ratio": "fixedratio",
-    "charge_rate": 0.33333333333333331,
-    "discharge_rate": 0.33333333333333331,
+    "power_energy_ratio": "fixed",
+    "charge_rate": 0.33333,
+    "discharge_rate": 0.33333,
     "capex_charging_power": 0,
     "capex_discharging_power": 0
   },

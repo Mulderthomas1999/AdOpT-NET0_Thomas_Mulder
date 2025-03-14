@@ -1,13 +1,13 @@
 {
   "tec_type": "CONV2",
   "size_min": 0,
-  "size_max": 250,
+  "size_max": 250000,
   "size_is_int": 0,
   "decommission": 0,
   "Economics": {
     "comment": "CAPEX in EUR/MW or as a piecewise function, OPEX_variable in EUR/MWh total output, OPEX_fixed in % of CAPEX_annual",
     "CAPEX_model": 1,
-    "unit_CAPEX": 300000,
+    "unit_CAPEX": 105670,
     "fix_CAPEX": 0,
     "piecewise_CAPEX": {
       "bp_x": [
@@ -24,8 +24,8 @@
       ]
     },
     "OPEX_variable": 0,
-    "OPEX_fixed": 0.02,
-    "discount_rate": 0.1,
+    "OPEX_fixed": 0.04,
+    "discount_rate": 0.08,
     "lifetime": 25,
     "decommission_cost": 0
   },
@@ -33,13 +33,14 @@
     "comment": "contains fitting data on unit of input, technology types and input/output carriers",
     "performance_function_type": 1,
     "input_carrier": [
-      "gas"
+      "methane",
+      "crackergas"
     ],
-    "main_input_carrier": "gas",
+    "main_input_carrier": "sum",
     "output_carrier": [
-      "heat"
+      "steam"
     ],
-    "emission_factor": 0.185,
+    "emission_factor": 0.203,
     "min_part_load": 0,
     "performance": {
       "in": [
@@ -47,7 +48,7 @@
         1
       ],
       "out": {
-        "heat": [
+        "steam": [
           0,
           0.92
         ]
@@ -71,7 +72,7 @@
       "gas": "MW"
     },
     "output_carrier": {
-      "heat": "MW"
+      "steam": "MW"
     }
   }
 }

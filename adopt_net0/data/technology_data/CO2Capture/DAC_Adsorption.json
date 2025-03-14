@@ -25,9 +25,9 @@
       "electricity",
       "heat"
     ],
-    "main_output_carrier": "CO2captured",
+    "main_output_carrier": "CO2",
     "output_carrier": [
-      "CO2captured"
+      "CO2"
     ],
     "nr_segments": 1,
     "ohmic_heating": 1,
@@ -36,7 +36,6 @@
       "eta_elth": 0.97
     }
   },
-  "DOI": "Data is published in: https://doi.org/10.1021/acs.iecr.2c00681",
   "Units": {
     "size": "MW",
     "input_carrier": {
@@ -44,7 +43,7 @@
       "heat": "MW"
     },
     "output_carrier": {
-      "CO2captured": "tonne/hr"
+      "CO2": "tonne/hr"
     }
   }
 }
